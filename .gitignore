@@ -42,7 +42,6 @@ docs/_build
 
 .webassets-cache
 
-env
-env*
+
 
 
