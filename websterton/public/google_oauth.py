@@ -174,7 +174,7 @@ def get_credentials(authorization_code, state):
     NoRefreshTokenException: No refresh token could be retrieved from the
                              available sources.
   """
-  email_address = 'rgotto2@gmail.com'
+  email_address = ''
   try:
     credentials = exchange_code(authorization_code)
     user_info = get_user_info(credentials)

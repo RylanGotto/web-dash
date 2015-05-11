@@ -28,10 +28,17 @@ def load_user(id):
 @blueprint.route("/", methods=["GET", "POST"])
 def home():
     form = LoginForm(request.form)
+    print User.query.filter(User.email == 'rgotto2@gmail.com').first()
     # Handle logging in
     if request.method == 'POST':
         if form.validate_on_submit():
-            login_user(form.user)
+
+            new_user = User.create(username='normady beach',
+                        email='rgotto2@gmail.com',
+                        password='atestpassword',
+                        active=True)
+            login_user(new_user)
+
             flash("You are logged in.", 'success')
             redirect_url = request.args.get("next") or url_for("user.members")
             return redirect(redirect_url)
@@ -52,17 +59,25 @@ def oauth():
 
 @blueprint.route("/register/", methods=['GET', 'POST'])
 def register():
-    form = RegisterForm(request.form, csrf_enabled=False)
-    if form.validate_on_submit():
-        new_user = User.create(username=form.username.data,
-                        email=form.email.data,
-                        password=form.password.data,
-                        active=True)
-        flash("Thank you for registering. You can now log in.", 'success')
+    try:
+        creds = google_oauth.get_credentials(request.args.get('code'), 'active')
+        print creds
+        info = google_oauth.get_user_info(creds)
+        if User.query.filter(User.email == info['email']).first() is None:
+            new_user = User.create(username=info['name'],
+                            email=info['email'],
+                            password='5*Hotel',
+                            active=True)
+            login_user(new_user)
+            flash(info['name'] + " thank you for registering.", 'success')
+            
+        else:
+            login_user(User.query.filter(User.email == info['email']).first())
+            flash("Hello, " + info['name'] + '!', 'success')
+        url_for("user.members")
+        return redirect(url_for("user.members"))
+    except Exception, e:
         return redirect(url_for('public.home'))
-    else:
-        flash_errors(form)
-    return render_template('public/register.html', form=form)
 
 @blueprint.route("/about/")
 def about():
