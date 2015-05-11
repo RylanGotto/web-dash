@@ -61,8 +61,9 @@ def oauth():
 def register():
     try:
         creds = google_oauth.get_credentials(request.args.get('code'), 'active')
-        print creds
+        #print creds
         info = google_oauth.get_user_info(creds)
+        print info
         if User.query.filter(User.email == info['email']).first() is None:
             new_user = User.create(username=info['name'],
                             email=info['email'],
