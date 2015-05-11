@@ -9,6 +9,13 @@ from websterton.user.models import User
 from websterton.public.forms import LoginForm
 from websterton.user.forms import RegisterForm
 from websterton.utils import flash_errors
+import google_oauth
+
+import argparse
+import httplib2
+import os
+import base64
+
 from websterton.database import db
 
 blueprint = Blueprint('public', __name__, static_folder="../static")
@@ -38,6 +45,10 @@ def logout():
     logout_user()
     flash('You are logged out.', 'info')
     return redirect(url_for('public.home'))
+
+@blueprint.route("/goauth/", methods=['GET', 'POST'])
+def oauth():
+    return redirect(google_oauth.get_authorization_url('', 'active'))
 
 @blueprint.route("/register/", methods=['GET', 'POST'])
 def register():

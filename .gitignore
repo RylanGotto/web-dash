@@ -41,7 +41,10 @@ output/*/index.html
 docs/_build
 
 .webassets-cache
-
+.idea
+.DS_Store
+evn
+evn*
 dev.db
 
 
