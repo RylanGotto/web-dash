@@ -47,7 +47,7 @@ evn
 evn*
 dev.db
 migrations
-*.json
+client_secret.json
 
 
 
