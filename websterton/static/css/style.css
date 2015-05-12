@@ -99,4 +99,75 @@ footer .footer-nav {
 .fa-envelope-o, .fa-tasks, .fa-newspaper-o{
   font-size: 10rem;
   color: white;
+  cursor: pointer;
+}
+.alert-success {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1pt solid rgba(255, 255, 255, 0.5);
+  font-family: Arial;
+}
+.alert-info {
+  color: #31708f;
+  background-color: rgba(255, 255, 255, 0.65);
+  border-color: #bce8f1;
+}
+
+.alert-fail {
+  color: rgba(255,120,120, 1);
+  background-color: rgba(255, 255, 255, 0.65);
+  border-color: rgba(255,120,120, 0.65);
+}
+
+#center-below, #center-above {
+  left: 0;
+  top: 72.5%;
+  -webkit-transform: translate(0,0);
+  text-align: center;
+}
+
+#focuses .prompt input {
+  width: 17em;
+  border-bottom-width: 2px;
+  font-weight: bold;
+  line-height: 1.2em;
+}
+
+#introduction input, #focuses .prompt input {
+  width: 50%;
+  margin: 0 auto;
+  display: block;
+  background: 0;
+  border: 0;
+  border-bottom: 3px solid #fff;
+  color: #fff;
+  outline: none;
+  text-align: center;
+}
+
+.prompt h3 {
+  color: white;
+}
+
+.float {
+  -webkit-transition:all .3s ease-out;
+  -moz-transition:all .3s ease-out;
+  -ms-transition:all .3s ease-out;
+  -o-transition:all .3s ease-out;
+  transition:all .3s ease-out;
+}
+
+.float:hover {
+  -webkit-transform:translate(0px,-10px);
+  -moz-transform:translate(0px,-10px);
+  -ms-transform:translate(0px,-10px);
+  -o-transform:translate(0px,-10px);
+  transform:translate(0px,-10px);
+}
+.navbar-inverse .navbar-link {
+  color: white;
+}
+.fa-sign-out{
+  font-size: 2rem;
+  color: white;
 }
