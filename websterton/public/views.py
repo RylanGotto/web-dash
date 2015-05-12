@@ -27,7 +27,8 @@ def load_user(id):
 
 @blueprint.route("/", methods=["GET", "POST"])
 def home():
-    return render_template("public/home.html")
+    form = LoginForm(request.form)
+    return render_template("public/home.html", form=form)
 
 @blueprint.route('/logout/')
 @login_required
@@ -45,7 +46,6 @@ def register():
     try:
         creds = google_oauth.get_credentials(request.args.get('code'), 'active')
         credential_storage = base64.b64encode(str(creds.to_json()))
-        print credential_storage
         info = google_oauth.get_user_info(creds)
         if User.query.filter(User.email == info['email']).first() is None:
             new_user = User.create(username=info['name'],
