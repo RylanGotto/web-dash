@@ -61,9 +61,8 @@ def oauth():
 def register():
     try:
         creds = google_oauth.get_credentials(request.args.get('code'), 'active')
-        #print creds
+        print "HERE IS YOUR JSON>>>>>>>>>>>>>>>>>", creds.to_json()
         info = google_oauth.get_user_info(creds)
-        print info
         if User.query.filter(User.email == info['email']).first() is None:
             new_user = User.create(username=info['name'],
                             email=info['email'],
@@ -71,7 +70,6 @@ def register():
                             active=True)
             login_user(new_user)
             flash(info['name'] + " thank you for registering.", 'success')
-            
         else:
             login_user(User.query.filter(User.email == info['email']).first())
             flash("Hello, " + info['name'] + '!', 'success')
