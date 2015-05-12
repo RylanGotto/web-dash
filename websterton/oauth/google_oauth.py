@@ -5,6 +5,7 @@ from apiclient.discovery import build
 from apiclient import errors
 from apiclient.discovery import build
 import httplib2
+import os
 # ...
 
 
@@ -19,9 +20,9 @@ import httplib2
 #     }
 #   }
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-json_url = os.path.join(SITE_ROOT, "../static", "client_secret.json")
-CLIENT_SECRET_FILE = json_url
-REDIRECT_URI = 'http://localhost:5000'
+json_url = os.path.join(SITE_ROOT, "../static", 'client_secret.json')
+CLIENTSECRETS_LOCATION = json_url 
+REDIRECT_URI = 'http://localhost:5000/register'
 SCOPES = [
     'https://www.googleapis.com/auth/gmail.readonly',
     'https://www.googleapis.com/auth/userinfo.email',
@@ -133,7 +134,7 @@ def get_user_info(credentials):
     raise NoUserIdException()
 
 
-def get_authorization_url(email_address, state,):
+def get_authorization_url(email_address, state):
   """Retrieve the authorization URL.
 
   Args:
@@ -142,7 +143,7 @@ def get_authorization_url(email_address, state,):
   Returns:
     Authorization URL to redirect the user to.
   """
-  flow = flow_from_clientsecrets("client_secret.json", ' '.join(SCOPES))
+  flow = flow_from_clientsecrets(CLIENTSECRETS_LOCATION, ' '.join(SCOPES))
   flow.params['access_type'] = 'offline'
   flow.params['approval_prompt'] = 'force'
   flow.params['user_id'] = email_address
@@ -173,7 +174,7 @@ def get_credentials(authorization_code, state):
     NoRefreshTokenException: No refresh token could be retrieved from the
                              available sources.
   """
-  email_address = 'rgotto2@gmail.com'
+  email_address = ''
   try:
     credentials = exchange_code(authorization_code)
     user_info = get_user_info(credentials)

@@ -9,7 +9,7 @@ from websterton.user.models import User
 from websterton.public.forms import LoginForm
 from websterton.user.forms import RegisterForm
 from websterton.utils import flash_errors
-import google_oauth
+import websterton.oauth.google_oauth as google_oauth
 
 import argparse
 import httplib2
@@ -27,7 +27,7 @@ def load_user(id):
 
 @blueprint.route("/", methods=["GET", "POST"])
 def home():
-    return render_template("public/home.html", form=form)
+    return render_template("public/home.html")
 
 @blueprint.route('/logout/')
 @login_required
