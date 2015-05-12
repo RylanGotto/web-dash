@@ -46,6 +46,7 @@ docs/_build
 evn
 evn*
 dev.db
+migrations
 
 
 
