@@ -10,6 +10,8 @@ html {
 
 body {
   padding-top: 60px;
+  background: url('../back.jpg');
+  background-size: cover;
 }
 
 section {
@@ -88,4 +90,13 @@ footer .footer-nav {
 .navbar-inverse {
   background-color: transparent;
   border: none;
+}
+
+.page-links{
+  text-align: center;
+}
+
+.fa-envelope-o, .fa-tasks, .fa-newspaper-o{
+  font-size: 10rem;
+  color: white;
 }

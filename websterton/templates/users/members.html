@@ -1,7 +1,18 @@
 
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Welcome {{ session.username }}</h1>
-    <h3>This is the members-only page.</h3>
+    <div class="body-content">
+  <div class="row">
+    <div class="col-lg-4 page-links">
+      <i class="fa fa-newspaper-o"></i>
+    </div>
+    <div class="col-lg-4 page-links">
+      <i class="fa fa-tasks"></i>
+   </div>
+    <div class="col-lg-4 page-links">
+      <i class="fa fa-envelope-o"></i>
+    </div>
+  </div><!-- /.row -->
+</div>
 {% endblock %}
 
