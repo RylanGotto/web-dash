@@ -9,6 +9,7 @@ from websterton.user.models import User
 from websterton.public.forms import LoginForm
 from websterton.user.forms import RegisterForm
 from websterton.utils import flash_errors
+from websterton.database import db
 import websterton.oauth.google_oauth as google_oauth
 
 import argparse
@@ -16,7 +17,7 @@ import httplib2
 import os
 import base64
 
-from websterton.database import db
+
 
 blueprint = Blueprint('public', __name__, static_folder="../static")
 

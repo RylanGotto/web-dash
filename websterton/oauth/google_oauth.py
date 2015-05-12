@@ -2,9 +2,11 @@ import logging
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 from apiclient.discovery import build
+from websterton.user.models import User
 from apiclient import errors
 from apiclient.discovery import build
 import httplib2
+import json
 import os
 # ...
 
@@ -55,7 +57,7 @@ class NoUserIdException(Exception):
   """Error raised when no user ID could be retrieved."""
 
 
-def get_stored_credentials(user_id):
+def get_stored_credentials(user_email):
   """Retrieved stored credentials for the provided user ID.
 
   Args:
@@ -69,10 +71,12 @@ def get_stored_credentials(user_id):
   #       To instantiate an OAuth2Credentials instance from a Json
   #       representation, use the oauth2client.client.Credentials.new_from_json
   #       class method.
-  raise NotImplementedError()
+  user = User.query.filter(User.email == user_email).first()
+  creds = json.loads(base64.b64decode(user.credentials))
+  return oauth2client.client.Credentials.new_from_json(creds)
 
 
-def store_credentials(user_id, credentials):
+def store_credentials(user_email, credentials):
   """Store OAuth 2.0 credentials in the application's database.
 
   This function stores the provided OAuth 2.0 credentials using the user ID as
@@ -87,7 +91,9 @@ def store_credentials(user_id, credentials):
   # TODO: Implement this function to work with your database.
   #       To retrieve a Json representation of the credentials instance, call the
   #       credentials.to_json() method.
-  raise NotImplementedError()
+  user = User.query.filter(User.email == user_email).first()
+  user.credentials = credentials
+  return user.save()
 
 
 def exchange_code(authorization_code):
