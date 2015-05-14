@@ -10,3 +10,9 @@ blueprint = Blueprint("user", __name__, url_prefix='/users',
 @login_required
 def members():
     return render_template("users/members.html")
+
+
+@blueprint.route("/settings/")
+@login_required
+def settings():
+    return render_template("users/settings.html")

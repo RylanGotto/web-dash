@@ -48,6 +48,7 @@ def register():
         creds = google_oauth.get_credentials(request.args.get('code'), 'active')
         credential_storage = base64.b64encode(str(creds.to_json()))
         info = google_oauth.get_user_info(creds)
+        print User.query.filter(User.email == info['email']).first()
         if User.query.filter(User.email == info['email']).first() is None:
             new_user = User.create(username=info['name'],
                             email=info['email'],
@@ -62,6 +63,7 @@ def register():
             flash("Hello, " + info['name'] + '!', 'success')
         return redirect(url_for("user.members"))
     except Exception, e:
+        print e
         return redirect(url_for('public.home'))
 
 @blueprint.route("/about/")
