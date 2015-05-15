@@ -2,61 +2,68 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="body-content">
+    <center style="color: white;"><h1>Saved</h1></center>
       <div class="row settings">
         <h1>{{ current_user.username }} Settings Page:</h1>
+
+ 
     </div>
     
-    <div class="row how-are-you-feeling">
+    <div class="row">
+    <div class="how-are-you-feeling-wrap">
         <div class="col-md-6">
-        
           <h1>How are you feeling?</h1>
         </div>
         <div class="col-md-12">
           <label>Zen</label>
-          <input type="checkbox" />
-          
+          <input data-type="theme" id="zen" class="feeling-checkbox" type="checkbox" />
         </div>
         <div class="col-md-12">
-          <label>Focuesed</label>
-          <input type="checkbox" />
-          </div>
+          <label>Focused</label>
+          <input data-type="theme" id="focused" class="feeling-checkbox" type="checkbox" />
+        </div>
         <div class="col-md-12">
           <label>Motivated</label>
-          <input type="checkbox" />
-          </div>
-          
-
+          <input data-type="theme" id="motivated" class="feeling-checkbox" type="checkbox" />
+        </div>
+        <div class="col-md-12">
+          <label>Inspired</label>
+          <input data-type="theme" id="inspired" class="feeling-checkbox" type="checkbox" />
+        </div>
+    </div>      
+<div class="news-feed-wrap">
     <div class="col-md-6">
         
           <h1>News Feeds</h1>
         </div>
         <div class="col-md-12">
           <label>News</label>
-          <input type="checkbox" />
+          <input data-type="feed" id="news" class="feed-checkbox" type="checkbox" />
         </div>
         <div class="col-md-12">
           <label>Development</label>
-          <input type="checkbox" />
+          <input data-type="feed" id="dev" class="feed-checkbox" type="checkbox" />
           </div>
         <div class="col-md-12">
           <label>Tech</label>
-          <input type="checkbox" />
+          <input data-type="feed" id="tech" class="feed-checkbox" type="checkbox" />
         </div>
         <div class="col-md-12">
           <label>Sports</label>
-          <input type="checkbox" />
+          <input data-type="feed" id="sports" class="feed-checkbox" type="checkbox" />
         </div>
         <div class="col-md-12">
           <label>Life</label>
-          <input type="checkbox" />
+          <input data-type="feed" id="life" class="feed-checkbox" type="checkbox" />
         </div>
         <div class="col-md-12">
           <label>Food</label>
-          <input type="checkbox" />
+          <input data-type="feed" id="food" class="feed-checkbox" type="checkbox" />
         </div>
           
         
     </div>
+  </div>
     <div class="col-mg-12">
         <div id="center-below">
           <div id="focuses" style="opacity: 1;">
