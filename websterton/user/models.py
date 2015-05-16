@@ -41,6 +41,7 @@ class User(UserMixin, SurrogatePK, Model):
     credentials = Column(db.String(512), nullable=True)
     current_theme = Column(db.String(128), nullable=True)
     news_feed = db.Column(db.PickleType)
+    monitored_reddits = db.Column(db.PickleType)
 
     def __init__(self, username, email, password=None, **kwargs):
         db.Model.__init__(self, username=username, email=email, **kwargs)
