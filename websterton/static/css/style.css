@@ -245,6 +245,8 @@ body > div.container > div > div > div.row.how-are-you-feeling > div{
     background: transparent;
     width: 100%;
     overflow-x: hidden;
+    color: white;
+    font-size: 2rem;
   }
 
 .ui-widget-content {
@@ -254,13 +256,12 @@ body > div.container > div > div > div.row.how-are-you-feeling > div{
   overflow-x: hidden;
 }
 .ui-accordion .ui-accordion-content {
-  /* padding: 1em 2.2em; */
   border-top: 0;
-  /* overflow: auto; */
   background: transparent;
-  /* overflow-x: hidden; */
 }
-
+.ui-state-default{
+  border: none;
+}
 
 .ui-accordion .ui-accordion-content {
    padding: 0;
