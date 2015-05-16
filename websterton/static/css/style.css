@@ -3,6 +3,13 @@
    ========================================================================== */
 
 /* universal */
+.faded {
+    opacity: 0;
+}
+
+.opaque {
+    opacity: 1;
+}
 
 *{
   font-family: 'Ubuntu', sans-serif;

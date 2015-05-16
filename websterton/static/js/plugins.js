@@ -12,28 +12,43 @@ function set_delete_monitored_reddit_action(){
 }
 
 function set_add_monitored_reddit_action(){
-	$('#search, #search_limit').keypress(function(e){
+	$('#upvote_thresh_hold, #reddit_name').keypress(function(e){
 			var key = e.which;
 		 	if(key == 13)  // the enter key code
 		  	{
-		  	  var desc = $('#search').val();
-		      var limit = $('#search_limit').val();
 
 
 
+		      list = {};
+		      upvote_limit = $('#upvote_thresh_hold').val();
+		  	  reddit_name = $('#reddit_name').val();
 
+		  	  list[reddit_name + ' new'] = upvote_limit;
+		  	  $(".info").each(
+				function(){
 
-		      
-		      $('.reddits').prepend('<li style="pointer: cursor;"><form id="monitored-reddits"><div id="focuses" style="opacity: 1;"><div class="prompt1" style="opacity: 1; display: block;"><div id="" class="container info">' + 
-		          '<i class="fa fa-times-circle-o"></i>' + 
-		          '<input class="check_box" type="checkbox" style="display:none;"/ >' +
-		          '<h3 style="display: inline-block;">r/'+ desc + '</h3><input style="width:75px;display: inline-block; float: right; " type="number" value="' + limit  + '" />' + 
-		          '</div></div></div></div></form></li>').hide().fadeIn('slow');  
-		    }
+				  reddit_name_exists = $(this).find('h3').html();
+				  upvote_limit_exists = $(this).find('input[type="number"]').val();
+				  list[reddit_name_exists] = upvote_limit_exists;
+				}
+		);
 
-		    $('#num_reddits').html($('.info').size());
-		    set_delete_monitored_reddit_action();
-		  	
+		      $.get("http://localhost:5000/user_manager/save_new_reddit", list).done(function(data){
+
+		      		$('.reddits').prepend('<li style="pointer: cursor;"><form id="monitored-reddits"><div id="focuses" style="opacity: 1;"><div class="prompt1" style="opacity: 1; display: block;"><div id="" class="container info">' + 
+			          '<i class="fa fa-times-circle-o"></i>' + 
+			          '<input class="check_box" type="checkbox" style="display:none;"/ >' +
+			          '<h3 style="display: inline-block;">'+ reddit_name + '</h3><input style="width:75px;display: inline-block; float: right; " type="number" value="' + upvote_limit  + '" />' + 
+			          '</div></div></div></div></form></li>').hide().fadeIn('slow');  
+		      		$('#num_reddits').html($('.info').size());
+		      		set_delete_monitored_reddit_action();
+		    		
+			
+	    		}).fail(function(){
+	    			$('#search_alert').fadeIn('slow').delay(800).fadeOut('slow');
+	    		});
+	    	}
+
 		 });
 }
 
@@ -57,17 +72,17 @@ function set_save_settings_action(){
 		list['user_id'] = $('#user_id').val();
 		console.log(list);
 
+		
+		$.get("http://localhost:5000/user_manager/save_user_settings", list).done(function(data){
 
-
-			$.get("http://localhost:5000/theme_manager/test", list).done(function(data){
-			
-	    });
+    	});
 
 		});
+	    
 }
 
 function set_change_background_behaviour(){
-    	$.get("http://localhost:5000/theme_manager/get_new_background", {user_id: $('#user_id').val(), current_theme: $('#current_theme').val() }).done(function(data){
+    	$.get("http://localhost:5000/user_manager/get_new_background", {user_id: $('#user_id').val(), current_theme: $('#current_theme').val() }).done(function(data){
 			$('body').css({'background-image': 'url('+data+')'});
 	
 	    });
@@ -81,22 +96,15 @@ function limit_checkbox_to_one_checked(){
 }
 
 $(document).ready(function (){
-
     
     	$(document).on({
-     		ajaxStart: function() { $('.afa-spinner').fadeIn('slow');  },
-     		ajaxStop: function() { $('.afa-spinner').fadeOut('slow'); }    
+     		ajaxStart: function() { $('.fa-spinner').fadeIn('slow');  },
+     		ajaxStop: function() { $('.fa-spinner').fadeOut('slow'); }    
 		});
-
-
-
-
-	
 
 		limit_checkbox_to_one_checked();
 		set_add_monitored_reddit_action();
 		set_save_settings_action();
 		set_change_background_behaviour();
-
 
 });

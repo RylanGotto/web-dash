@@ -12,7 +12,7 @@ from websterton.extensions import (
     migrate,
     debug_toolbar,
 )
-from websterton import public, user, theme_manager
+from websterton import public, user, user_manager
 
 
 def create_app(config_object=ProdConfig):
@@ -43,7 +43,7 @@ def register_extensions(app):
 def register_blueprints(app):
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(user.views.blueprint)
-    app.register_blueprint(theme_manager.views.blueprint)
+    app.register_blueprint(user_manager.views.blueprint)
     return None
 
 
