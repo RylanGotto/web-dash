@@ -83,7 +83,10 @@ function limit_checkbox_to_one_checked(){
 $(document).ready(function (){
 
     
-    
+    	$(document).on({
+     		ajaxStart: function() { $('.afa-spinner').fadeIn('slow');  },
+     		ajaxStop: function() { $('.afa-spinner').fadeOut('slow'); }    
+		});
 
 
 
