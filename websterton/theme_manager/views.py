@@ -29,10 +29,17 @@ def get_new_background():
 @blueprint.route("/test", methods=["GET", "POST"])
 @login_required
 def test():
+	
 	user_info = request.args.to_dict()
-	print user_info['user_id']
 	user = load_user(user_info['user_id'])
-	user.current_theme = user_info['theme']
+	news_feed = {}
+	for i, k in user_info.iteritems():
+		if i == 'theme':
+			user.current_theme = k
+		elif i != 'theme' and i != 'user_id':
+			news_feed.update({i:k})
+	
+	print news_feed
 	user.save()
 	return "theme changed"
 
