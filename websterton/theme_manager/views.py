@@ -20,9 +20,6 @@ def get_new_background():
 	print path
 	backgrounds = os.listdir(path)[1:]
 	new_background_num = randint(0,len(backgrounds)-1)
-
-
-
 	return url_for('static', filename='%s/%s' % (theme, backgrounds[new_background_num]))
 
 

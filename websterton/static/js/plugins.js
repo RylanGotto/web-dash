@@ -1,4 +1,12 @@
 // place any jQuery/helper plugins in here, instead of separate, slower script files.
+function set_exit_click(){
+  $('.fa-times-circle-o').on('click', function(){
+  $(this).parent('.info').hide('slow');
+  $(this).parent('.info').destroy();
+
+});
+}
+
 $(document).ready(function (){
     $.fn.changeBackground = function(){
     	$.get("http://localhost:5000/theme_manager/get_new_background", {user_id: $('#user_id').val(), current_theme: $('#current_theme').val() }).done(function(data){
@@ -40,6 +48,24 @@ $(document).ready(function (){
 	    });
 
 		});
+
+	$('#search, #search_limit').keypress(function(e){
+	var key = e.which;
+ 	if(key == 13)  // the enter key code
+  	{
+  	  var desc = $('#search').val();
+      var limit = $('#search_limit').val();
+
+      
+      $('.reddits').prepend('<li style="pointer: cursor;"><div id="" class="container info">' + 
+          '<i class="fa fa-times-circle-o"></i>' + 
+          '<input class="check_box" type="checkbox" style=""/ >' +
+          '<h3>'+ desc + ' <span class="minutes" >complete me in <mins>' + limit  + '</mins></span></h3>' + 
+          '</div> </div></li>').hide().fadeIn('slow');  
+    }
+    set_exit_click();
+  	
+  });
 
 
 });

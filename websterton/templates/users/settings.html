@@ -8,9 +8,9 @@
 
  
     </div>
-    {% for i in current_user.current_theme %}
-      {{i}}
-    {% endfor %}
+    
+     
+    
     <div class="row">
     <div class="how-are-you-feeling-wrap">
         <div class="col-md-6">
@@ -18,19 +18,35 @@
         </div>
         <div class="col-md-12">
           <label>Zen</label>
-          <input data-type="theme" id="zen" class="feeling-checkbox" type="checkbox" value="checked"/>
+          {% if current_user.current_theme == 'zen' %}
+            <input data-type="theme" id="zen" class="feeling-checkbox" type="checkbox" checked/>
+          {% else %}
+            <input data-type="theme" id="zen" class="feeling-checkbox" type="checkbox" />
+          {% endif %}
         </div>
         <div class="col-md-12">
           <label>Focused</label>
-          <input data-type="theme" id="focused" class="feeling-checkbox" type="checkbox" />
+          {% if current_user.current_theme == 'focused' %}
+            <input data-type="theme" id="focused" class="feeling-checkbox" type="checkbox" checked/>
+          {% else %}
+            <input data-type="theme" id="focused" class="feeling-checkbox" type="checkbox" />
+          {% endif %}
         </div>
         <div class="col-md-12">
           <label>Motivated</label>
-          <input data-type="theme" id="motivated" class="feeling-checkbox" type="checkbox" />
+          {% if current_user.current_theme == 'motivated' %}
+            <input data-type="theme" id="motivated" class="feeling-checkbox" type="checkbox" checked/>
+          {% else %}
+            <input data-type="theme" id="motivated" class="feeling-checkbox" type="checkbox" />
+          {% endif %}
         </div>
         <div class="col-md-12">
           <label>Inspired</label>
-          <input data-type="theme" id="inspired" class="feeling-checkbox" type="checkbox" />
+          {% if current_user.current_theme == 'inspired' %}
+            <input data-type="theme" id="inspired" class="feeling-checkbox" type="checkbox" checked/>
+          {% else %}
+            <input data-type="theme" id="inspired" class="feeling-checkbox" type="checkbox" />
+          {% endif %}
         </div>
     </div>      
 <div class="news-feed-wrap">
@@ -41,27 +57,51 @@
         <div class="col-md-12">
         <form id="news-feed-form">
           <label>News</label>
-          <input data-type="feed" name="news" id="news" class="feed-checkbox" type="checkbox" />
+          {% if current_user.news_feed['news'] %}
+            <input data-type="feed" name="news" id="news" class="feed-checkbox" type="checkbox" checked/>
+          {% else %}
+            <input data-type="feed" name="news" id="news" class="feed-checkbox" type="checkbox" />
+          {% endif %}
         </div>
         <div class="col-md-12">
           <label>Development</label>
-          <input data-type="feed" name="dev" id="dev" class="feed-checkbox" type="checkbox" />
+        {% if current_user.news_feed['dev'] %}
+          <input data-type="feed" name="dev" id="dev" class="feed-checkbox" type="checkbox" checked/>
+        {% else %}
+             <input data-type="feed" name="dev" id="dev" class="feed-checkbox" type="checkbox" />
+        {% endif %}
           </div>
         <div class="col-md-12">
           <label>Tech</label>
-          <input data-type="feed" name="tech" id="tech" class="feed-checkbox" type="checkbox" />
+        {% if current_user.news_feed['tech'] %}
+          <input data-type="feed" name="tech" id="tech" class="feed-checkbox" type="checkbox" checked/>
+        {% else %}
+            <input data-type="feed" name="tech" id="tech" class="feed-checkbox" type="checkbox" />
+          {% endif %}
         </div>
         <div class="col-md-12">
           <label>Sports</label>
-          <input data-type="feed" name="sports" id="sports" class="feed-checkbox" type="checkbox" />
+        {% if current_user.news_feed['sports'] %}
+          <input data-type="feed" name="sports" id="sports" class="feed-checkbox" type="checkbox" checked/>
+         {% else %}
+            <input data-type="feed" name="sports" id="sports" class="feed-checkbox" type="checkbox" />
+          {% endif %}
         </div>
         <div class="col-md-12">
           <label>Life</label>
-          <input data-type="feed" name="life" id="life" class="feed-checkbox" type="checkbox" />
+        {% if current_user.news_feed['life'] %}
+          <input data-type="feed" name="life" id="life" class="feed-checkbox" type="checkbox" checked/>
+        {% else %}
+            <input data-type="feed" name="life" id="life" class="feed-checkbox" type="checkbox" />
+          {% endif %}
         </div>
         <div class="col-md-12">
           <label>Food</label>
-          <input data-type="feed" name="food" id="food" class="feed-checkbox" type="checkbox" />
+          {% if current_user.news_feed['food'] %}
+            <input data-type="feed" name="food" id="food" class="feed-checkbox" type="checkbox" checked/>
+          {% else %}
+            <input data-type="feed" name="food" id="food" class="feed-checkbox" type="checkbox" />
+          {% endif %}
         </div>
        </form>
         
@@ -72,10 +112,16 @@
           <div id="focuses" style="opacity: 1;">
             <div class="prompt" style="opacity: 1; display: block;">
                     <h3>Enter a subreddit to watch.</h3>
-                    <input type="text">
+                    <input id="search" type="text" style="display: inline-block;">
+                    <input id="search_limit" type="number" style="width: 75px; display: inline-block;
+  margin-left: 3rem;">
                 </div>
             </div>
         </div>
     </div>
+    <div class="monitored-reddits">
+     <ul class="reddits"></ul>
+    </div>
+
  </div>
 {% endblock %}

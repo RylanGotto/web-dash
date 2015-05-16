@@ -205,3 +205,6 @@ body > div.container > div > div > div.row.how-are-you-feeling > div{
   margin-left: 10.3rem;
 }
 
+.navbar-inverse .navbar-nav > li > a {
+  color: white;
+}
