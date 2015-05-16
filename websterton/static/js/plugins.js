@@ -2,12 +2,13 @@
 function set_exit_click(){
   $('.fa-times-circle-o').on('click', function(){
   $(this).parent('.info').hide('slow');
-  $(this).parent('.info').destroy();
+  $(this).parent('.info').destroy()
 
 });
 }
 
 $(document).ready(function (){
+	
     $.fn.changeBackground = function(){
     	$.get("http://localhost:5000/theme_manager/get_new_background", {user_id: $('#user_id').val(), current_theme: $('#current_theme').val() }).done(function(data){
 			$('body').css({'background-image': 'url('+data+')'});
@@ -57,11 +58,11 @@ $(document).ready(function (){
       var limit = $('#search_limit').val();
 
       
-      $('.reddits').prepend('<li style="pointer: cursor;"><div id="" class="container info">' + 
+      $('.reddits').prepend('<li style="pointer: cursor;"><form id="monitored-reddits"><div id="focuses" style="opacity: 1;"><div class="prompt1" style="opacity: 1; display: block;"><div id="" class="container info">' + 
           '<i class="fa fa-times-circle-o"></i>' + 
-          '<input class="check_box" type="checkbox" style=""/ >' +
-          '<h3>'+ desc + ' <span class="minutes" >complete me in <mins>' + limit  + '</mins></span></h3>' + 
-          '</div> </div></li>').hide().fadeIn('slow');  
+          '<input class="check_box" type="checkbox" style="display:none;"/ >' +
+          '<h3 style="display: inline-block;">r/'+ desc + '</h3><input style="width:75px;display: inline-block; float: right; " type="number" value="' + limit  + '" />' + 
+          '</div></div></div></div></form></li>').hide().fadeIn('slow');  
     }
     set_exit_click();
   	

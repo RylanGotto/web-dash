@@ -12,6 +12,10 @@
 html {
   overflow-y: scroll;
 }
+ul, ol {
+  padding: 0;
+  list-style-type: none;
+  }
 
 body {
   padding-top: 60px;
@@ -103,7 +107,10 @@ footer .footer-nav {
 .page-links{
   text-align: center;
 }
-
+.fa-times-circle-o{
+  font-size:2rem;
+  margin-right: 1rem;
+}
 .fa-envelope-o, .fa-tasks, .fa-newspaper-o{
   font-size: 10rem;
   color: white;
@@ -151,6 +158,21 @@ footer .footer-nav {
   color: #fff;
   outline: none;
   text-align: center;
+}
+
+#introduction input, #focuses .prompt1 input {
+  width: 50%;
+  margin: 0 auto;
+  display: block;
+  background: 0;
+  border: 0;
+  color: #fff;
+  outline: none;
+  text-align: center;
+  width: 17em;
+  border-bottom-width: 2px;
+  font-size:3rem;
+  font-weight: 200;
 }
 
 .prompt h3 {
@@ -208,3 +230,42 @@ body > div.container > div > div > div.row.how-are-you-feeling > div{
 .navbar-inverse .navbar-nav > li > a {
   color: white;
 }
+
+
+.info{
+  border-bottom: 3px solid #fff;
+}
+
+#accordion{
+  margin-top:5rem;
+}
+
+
+.ui-accordion .ui-accordion-icons  {
+    background: transparent;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+.ui-widget-content {
+  border: none;
+}
+.monitored-reddits{
+  overflow-x: hidden;
+}
+.ui-accordion .ui-accordion-content {
+  /* padding: 1em 2.2em; */
+  border-top: 0;
+  /* overflow: auto; */
+  background: transparent;
+  /* overflow-x: hidden; */
+}
+
+
+.ui-accordion .ui-accordion-content {
+   padding: 0;
+}
+
+
+
+
