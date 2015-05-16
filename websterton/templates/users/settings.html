@@ -8,7 +8,9 @@
 
  
     </div>
-    
+    {% for i in current_user.current_theme %}
+      {{i}}
+    {% endfor %}
     <div class="row">
     <div class="how-are-you-feeling-wrap">
         <div class="col-md-6">
@@ -16,7 +18,7 @@
         </div>
         <div class="col-md-12">
           <label>Zen</label>
-          <input data-type="theme" id="zen" class="feeling-checkbox" type="checkbox" />
+          <input data-type="theme" id="zen" class="feeling-checkbox" type="checkbox" value="checked"/>
         </div>
         <div class="col-md-12">
           <label>Focused</label>

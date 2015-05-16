@@ -32,6 +32,7 @@ def test():
 	
 	user_info = request.args.to_dict()
 	user = load_user(user_info['user_id'])
+	print user.news_feed
 	news_feed = {}
 	for i, k in user_info.iteritems():
 		if i == 'theme':
@@ -39,7 +40,7 @@ def test():
 		elif i != 'theme' and i != 'user_id':
 			news_feed.update({i:k})
 	
-	print news_feed
+	user.news_feed = news_feed
 	user.save()
 	return "theme changed"
 
