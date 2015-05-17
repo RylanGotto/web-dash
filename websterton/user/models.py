@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime as dt
-
+from sqlalchemy.ext.mutable import Mutable
 from flask_login import UserMixin
 
 from websterton.extensions import bcrypt
@@ -12,6 +12,31 @@ from websterton.database import (
     relationship,
     SurrogatePK,
 )
+
+class MutableDict(Mutable, dict):
+
+    @classmethod
+    def coerce(cls, key, value):
+        if not isinstance(value, MutableDict):
+            if isinstance(value, dict):
+                return MutableDict(value)
+            return Mutable.coerce(key, value)
+        else:
+            return value
+
+    def __delitem(self, key):
+        dict.__delitem__(self, key)
+        self.changed()
+
+    def __setitem__(self, key, value):
+        dict.__setitem__(self, key, value)
+        self.changed()
+
+    def __getstate__(self):
+        return dict(self)
+
+    def __setstate__(self, state):
+        self.update(self)
 
 
 class Role(SurrogatePK, Model):
@@ -41,7 +66,7 @@ class User(UserMixin, SurrogatePK, Model):
     credentials = Column(db.String(512), nullable=True)
     current_theme = Column(db.String(128), nullable=True)
     news_feed = db.Column(db.PickleType)
-    monitored_reddits = db.Column(db.PickleType)
+    monitored_reddits = db.Column(MutableDict.as_mutable(db.PickleType))
 
     def __init__(self, username, email, password=None, **kwargs):
         db.Model.__init__(self, username=username, email=email, **kwargs)
@@ -62,3 +87,7 @@ class User(UserMixin, SurrogatePK, Model):
 
     def __repr__(self):
         return '<User({username!r})>'.format(username=self.username)
+
+
+
+

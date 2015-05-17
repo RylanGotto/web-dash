@@ -4,19 +4,15 @@ function set_delete_monitored_reddit_action(){
   			  list = {};
   			  reddit_name = $(this).siblings('h3').html();
   			  list[reddit_name] = reddit_name;
-  $(this).parent('.info').hide('slow', function(){
+  			  list['user_id'] = $('#user_id').val();
+  	$(this).parent('.info').hide('slow', function(){
   			  $(this).remove();
 
   			  $.get("http://localhost:5000/user_manager/remove_reddit", list).done(function(data){
-  			  		
-  					
+  			  		$('#search_alert').html(reddit_name + ' removed!').fadeIn('slow').delay(800).fadeOut('slow');
   			  });
   			  $('#num_reddits').html($('.info').size());
-
-  			
-  });
-
-
+  	});
   });
 }
 
@@ -33,6 +29,7 @@ function set_add_monitored_reddit_action(){
 		  	  reddit_name = $('#reddit_name').val();
 
 		  	  list[reddit_name] = upvote_limit;
+		  	  list['user_id'] = $('#user_id').val();
 		  	 
 
 		      $.get("http://localhost:5000/user_manager/save_new_reddit", list).done(function(data){
@@ -47,7 +44,7 @@ function set_add_monitored_reddit_action(){
 		    		
 			
 	    		}).fail(function(){
-	    			$('#search_alert').fadeIn('slow').delay(800).fadeOut('slow');
+	    			$('#search_alert').html('Saved!').fadeIn('slow').delay(800).fadeOut('slow');
 	    		});
 	    	}
 

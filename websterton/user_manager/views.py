@@ -48,8 +48,15 @@ def save_user_settings():
 @login_required
 def save_new_reddit():
 	r = praw.Reddit(user_agent='a_new_app (By: Rylan Gotto)')
-	reddit = request.args.to_dict()
-	print reddit
+	info = request.args.to_dict()
+	user = load_user(info['user_id'])
+	info.pop('user_id')
+	monitored_reddits = user.monitored_reddits
+	monitored_reddits.update(info)
+	user.monitored_reddits = monitored_reddits
+	print user.monitored_reddits
+	user.save()
+
 	return "words"
 
 
@@ -59,7 +66,6 @@ def remove_reddit():
 	r = praw.Reddit(user_agent='a_new_app (By: Rylan Gotto)')
 	reddit = request.args.to_dict()
 	print reddit
-
 	return "words"
 	
 	
