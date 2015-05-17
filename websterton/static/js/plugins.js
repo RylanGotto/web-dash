@@ -1,10 +1,19 @@
 // place any jQuery/helper plugins in here, instead of separate, slower script files.
 function set_delete_monitored_reddit_action(){
   $('.fa-times-circle-o').on('click', function(){
-
+  			  list = {};
+  			  reddit_name = $(this).siblings('h3').html();
+  			  list[reddit_name] = reddit_name;
   $(this).parent('.info').hide('slow', function(){
-  			$(this).remove();
-  			$('#num_reddits').html($('.info').size());
+  			  $(this).remove();
+
+  			  $.get("http://localhost:5000/user_manager/remove_reddit", list).done(function(data){
+  			  		
+  					
+  			  });
+  			  $('#num_reddits').html($('.info').size());
+
+  			
   });
 
 
@@ -23,15 +32,8 @@ function set_add_monitored_reddit_action(){
 		      upvote_limit = $('#upvote_thresh_hold').val();
 		  	  reddit_name = $('#reddit_name').val();
 
-		  	  list[reddit_name + ' new'] = upvote_limit;
-		  	  $(".info").each(
-				function(){
-
-				  reddit_name_exists = $(this).find('h3').html();
-				  upvote_limit_exists = $(this).find('input[type="number"]').val();
-				  list[reddit_name_exists] = upvote_limit_exists;
-				}
-		);
+		  	  list[reddit_name] = upvote_limit;
+		  	 
 
 		      $.get("http://localhost:5000/user_manager/save_new_reddit", list).done(function(data){
 

@@ -48,34 +48,19 @@ def save_user_settings():
 @login_required
 def save_new_reddit():
 	r = praw.Reddit(user_agent='a_new_app (By: Rylan Gotto)')
-	reddits = request.args.to_dict()
-	reddits_to_store = {}
-	counter = 0
-	status = 0
-	for i, k in reddits.iteritems():
-		new_subreddit = i.split(' ')
-		try:
-			print len(new_subreddit)
-			if len(new_subreddit) == 2:
-				submissions = r.get_subreddit(new_subreddit[0])
-				for i in submissions.get_new(limit=1):
-					print counter
-					counter += 1
-				if counter < 0:
-					print counter
-					status = 200
-					reddits_to_store.update({new_subreddit[0], k})
-				else:
-					status = 500
-			else:
-				reddits_to_store.update({i, k})
-				
-		except:
-			print 213
-			return "failed"
-	print reddits_to_store
+	reddit = request.args.to_dict()
+	print reddit
+	return "words"
 
-	
+
+@blueprint.route("/remove_reddit", methods=["GET", "POST"])
+@login_required
+def remove_reddit():
+	r = praw.Reddit(user_agent='a_new_app (By: Rylan Gotto)')
+	reddit = request.args.to_dict()
+	print reddit
+
+	return "words"
 	
 	
 
