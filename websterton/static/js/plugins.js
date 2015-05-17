@@ -41,10 +41,10 @@ function set_add_monitored_reddit_action(){
 			          '</div></div></div></div></form></li>').hide().fadeIn('slow');  
 		      		$('#num_reddits').html($('.info').size());
 		      		set_delete_monitored_reddit_action();
-		    		
+		    		$('#search_alert').html('Saved!').fadeIn('slow').delay(800).fadeOut('slow');
 			
 	    		}).fail(function(){
-	    			$('#search_alert').html('Saved!').fadeIn('slow').delay(800).fadeOut('slow');
+	    			$('#search_alert').html('Cannot save two of the same reddits!').fadeIn('slow').delay(800).fadeOut('slow');
 	    		});
 	    	}
 
@@ -95,7 +95,7 @@ function limit_checkbox_to_one_checked(){
 }
 
 $(document).ready(function (){
-    
+    	$('#num_reddits').html($('.info').size());
     	$(document).on({
      		ajaxStart: function() { $('.fa-spinner').fadeIn('slow');  },
      		ajaxStop: function() { $('.fa-spinner').fadeOut('slow'); }    

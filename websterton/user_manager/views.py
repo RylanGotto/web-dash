@@ -51,21 +51,31 @@ def save_new_reddit():
 	info = request.args.to_dict()
 	user = load_user(info['user_id'])
 	info.pop('user_id')
-	monitored_reddits = user.monitored_reddits
-	monitored_reddits.update(info)
-	user.monitored_reddits = monitored_reddits
+	new_key = ""
+	for i in info.viewkeys():
+		new_key = i
 	print user.monitored_reddits
-	user.save()
-
-	return "words"
+	if user.monitored_reddits.has_key(new_key):
+		return "failed", 404
+	else:
+		print 1
+		for i, k in info.iteritems():
+			user.monitored_reddits.__setitem__(i, k)
+		user.save()
+		return "success"
 
 
 @blueprint.route("/remove_reddit", methods=["GET", "POST"])
 @login_required
 def remove_reddit():
 	r = praw.Reddit(user_agent='a_new_app (By: Rylan Gotto)')
-	reddit = request.args.to_dict()
-	print reddit
+	info = request.args.to_dict()
+	user = load_user(info['user_id'])
+	info.pop('user_id')
+	for i, k in info.iteritems():
+		user.monitored_reddits.__delitem__(i)
+	print user.monitored_reddits
+	user.save()
 	return "words"
 	
 	
