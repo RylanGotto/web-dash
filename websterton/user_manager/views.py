@@ -81,10 +81,8 @@ def remove_reddit():
 	
 	user.monitored_reddits = json.dumps(monitored_reddits)
 	user.save()
-	return "words"
+	return "deleted"
 	
-	
-
 
 def load_user(id):
     return User.get_by_id(int(id))
