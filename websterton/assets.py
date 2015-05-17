@@ -12,6 +12,7 @@ js = Bundle(
     "libs/jQuery/dist/jquery.js",
     "libs/bootstrap/dist/js/bootstrap.js",
     "js/plugins.js",
+    "libs/monkeecreate-jquery.simpleWeather-ed11490/jquery.simpleWeather.js",
     filters='jsmin',
     output="public/js/common.js"
 )
