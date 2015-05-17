@@ -56,19 +56,17 @@ def save_new_reddit():
 	for i, k in info.iteritems():
 		new_key = i
 		upvote_limit = k
-	
+
 	monitored_reddits = json.loads(user.monitored_reddits)
 
 	if monitored_reddits.has_key(new_key) and upvote_limit > 0:
 		return "failed", 404
 	else:
-		print 1
 		for i, k in info.iteritems():
-			monitored_reddits.update({i, k})
+			monitored_reddits.update({i : k})
 
 		user.monitored_reddits = json.dumps(monitored_reddits)
 		user.save()
-		print user.monitored_reddits
 		return "success"
 
 
@@ -79,11 +77,14 @@ def remove_reddit():
 	info = request.args.to_dict()
 	user = load_user(info['user_id'])
 	info.pop('user_id')
+
+	monitored_reddits = json.loads(user.monitored_reddits)
+
 	for i, k in info.iteritems():
-		user.monitored_reddits.__setitem__(i, 0)
+		monitored_reddits.pop(i)
 	
+	user.monitored_reddits = json.dumps(monitored_reddits)
 	user.save()
-	print user.monitored_reddits
 	return "words"
 	
 	
