@@ -123,9 +123,31 @@
     </div>
 <div id="accordion" class="col-mg-12">
   <h3>Reddits being watched <span id="num_reddits">0</span></h3>
+  
+
   <div>
     <div class="monitored-reddits">
-     <ul class="reddits"></ul>
+     <ul class="reddits">
+       {% for i,k in reddits.iteritems() %}
+        
+
+        <li style="pointer: cursor;">
+          <form id="monitored-reddits">
+            <div id="focuses" style="opacity: 1;">
+              <div class="prompt1" style="opacity: 1; display: block;">
+                <div id="" class="container info">  
+                  <i class="fa fa-times-circle-o"></i>  
+                  <input class="check_box" type="checkbox" style="display:none;"/ > 
+                  <h3 style="display: inline-block;"> {{i}} </h3>
+                  <input style="margin-right: 1rem; width:75px; display: inline-block; float: right; " type="number" value={{k}} />  
+                </div>
+              </div>
+            </div>
+        </form>
+      </li>
+
+  {% endfor %}
+     </ul>
     </div>
   </div>
 </div>

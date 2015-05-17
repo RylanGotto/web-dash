@@ -35,8 +35,8 @@ function set_add_monitored_reddit_action(){
 		      		$('.reddits').prepend('<li style="pointer: cursor;"><form id="monitored-reddits"><div id="focuses" style="opacity: 1;"><div class="prompt1" style="opacity: 1; display: block;"><div id="" class="container info">' + 
 			          '<i class="fa fa-times-circle-o"></i>' + 
 			          '<input class="check_box" type="checkbox" style="display:none;"/ >' +
-			          '<h3 style="display: inline-block;">'+ reddit_name + '</h3><input style="width:75px;display: inline-block; float: right; " type="number" value="' + upvote_limit  + '" />' + 
-			          '</div></div></div></div></form></li>').hide().fadeIn('slow');  
+			          '<h3 style="display: inline-block;">'+ reddit_name + '</h3><input style="margin-right: 1rem; width:75px;display: inline-block; float: right; " type="number" value="' + upvote_limit  + '" />' + 
+			          '</div></div></div></form></li>').hide().fadeIn('slow');  
 		      		$('#num_reddits').html($('.info').size());
 		      		set_delete_monitored_reddit_action();
 		    		$('#search_alert').html('Saved!').fadeIn('slow').delay(800).fadeOut('slow');
@@ -102,5 +102,6 @@ $(document).ready(function (){
 		set_add_monitored_reddit_action();
 		set_save_settings_action();
 		set_change_background_behaviour();
+		set_delete_monitored_reddit_action();
 
 });

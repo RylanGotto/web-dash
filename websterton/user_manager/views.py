@@ -48,10 +48,8 @@ def save_user_settings():
 @blueprint.route("/save_new_reddit", methods=["GET", "POST"])
 @login_required
 def save_new_reddit():
-	r = praw.Reddit(user_agent='a_new_app (By: Rylan Gotto)')
 	info = request.args.to_dict()
 	user = load_user(session['user_id'])
-	info.pop('user_id')
 	new_key = ""
 	for i, k in info.iteritems():
 		new_key = i
@@ -73,15 +71,13 @@ def save_new_reddit():
 @blueprint.route("/remove_reddit", methods=["GET", "POST"])
 @login_required
 def remove_reddit():
-	r = praw.Reddit(user_agent='a_new_app (By: Rylan Gotto)')
 	info = request.args.to_dict()
 	user = load_user(session['user_id'])
-	info.pop('user_id')
 
 	monitored_reddits = json.loads(user.monitored_reddits)
 
 	for i, k in info.iteritems():
-		monitored_reddits.pop(i)
+		monitored_reddits.pop(i.strip())
 	
 	user.monitored_reddits = json.dumps(monitored_reddits)
 	user.save()
