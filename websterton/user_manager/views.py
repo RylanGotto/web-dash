@@ -6,6 +6,7 @@ from websterton.user.models import User
 from random import randint
 import os
 import praw
+import json
 
 
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
@@ -52,16 +53,22 @@ def save_new_reddit():
 	user = load_user(info['user_id'])
 	info.pop('user_id')
 	new_key = ""
-	for i in info.viewkeys():
+	for i, k in info.iteritems():
 		new_key = i
-	print user.monitored_reddits
-	if user.monitored_reddits.has_key(new_key):
+		upvote_limit = k
+	
+	monitored_reddits = json.loads(user.monitored_reddits)
+
+	if monitored_reddits.has_key(new_key) and upvote_limit > 0:
 		return "failed", 404
 	else:
 		print 1
 		for i, k in info.iteritems():
-			user.monitored_reddits.__setitem__(i, k)
+			monitored_reddits.update({i, k})
+
+		user.monitored_reddits = json.dumps(monitored_reddits)
 		user.save()
+		print user.monitored_reddits
 		return "success"
 
 
@@ -73,9 +80,10 @@ def remove_reddit():
 	user = load_user(info['user_id'])
 	info.pop('user_id')
 	for i, k in info.iteritems():
-		user.monitored_reddits.__delitem__(i)
-	print user.monitored_reddits
+		user.monitored_reddits.__setitem__(i, 0)
+	
 	user.save()
+	print user.monitored_reddits
 	return "words"
 	
 	
