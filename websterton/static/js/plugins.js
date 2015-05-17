@@ -4,7 +4,6 @@ function set_delete_monitored_reddit_action(){
   			  list = {};
   			  reddit_name = $(this).siblings('h3').html();
   			  list[reddit_name] = reddit_name;
-  			  list['user_id'] = $('#user_id').val();
   	$(this).parent('.info').hide('slow', function(){
   			  $(this).remove();
 
@@ -29,7 +28,6 @@ function set_add_monitored_reddit_action(){
 		  	  reddit_name = $('#reddit_name').val();
 
 		  	  list[reddit_name] = upvote_limit;
-		  	  list['user_id'] = $('#user_id').val();
 		  	 
 
 		      $.get("http://localhost:5000/user_manager/save_new_reddit", list).done(function(data){
@@ -68,7 +66,6 @@ function set_save_settings_action(){
 			}
 		);
 
-		list['user_id'] = $('#user_id').val();
 		console.log(list);
 
 		
@@ -81,7 +78,7 @@ function set_save_settings_action(){
 }
 
 function set_change_background_behaviour(){
-    	$.get("http://localhost:5000/user_manager/get_new_background", {user_id: $('#user_id').val(), current_theme: $('#current_theme').val() }).done(function(data){
+    	$.get("http://localhost:5000/user_manager/get_new_background", {current_theme: $('#current_theme').val() }).done(function(data){
 			$('body').css({'background-image': 'url('+data+')'});
 	
 	    });

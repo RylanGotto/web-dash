@@ -17,8 +17,8 @@ blueprint = Blueprint("user_manager", __name__, url_prefix='/user_manager',
 @blueprint.route("/get_new_background")
 @login_required
 def get_new_background():
-	user_id = request.args.get('user_id')
-	theme = request.args.get('current_theme')
+	user = load_user(session['user_id'])
+	theme = user.current_theme
 	path = os.path.join(SITE_ROOT, "../static", theme)
 	print path
 	backgrounds = os.listdir(path)[1:]
@@ -31,7 +31,7 @@ def get_new_background():
 def save_user_settings():
 	
 	user_info = request.args.to_dict()
-	user = load_user(user_info['user_id'])
+	user = load_user(session['user_id'])
 	print user.news_feed
 	news_feed = {}
 	for i, k in user_info.iteritems():
@@ -50,7 +50,7 @@ def save_user_settings():
 def save_new_reddit():
 	r = praw.Reddit(user_agent='a_new_app (By: Rylan Gotto)')
 	info = request.args.to_dict()
-	user = load_user(info['user_id'])
+	user = load_user(session['user_id'])
 	info.pop('user_id')
 	new_key = ""
 	for i, k in info.iteritems():
@@ -75,7 +75,7 @@ def save_new_reddit():
 def remove_reddit():
 	r = praw.Reddit(user_agent='a_new_app (By: Rylan Gotto)')
 	info = request.args.to_dict()
-	user = load_user(info['user_id'])
+	user = load_user(session['user_id'])
 	info.pop('user_id')
 
 	monitored_reddits = json.loads(user.monitored_reddits)
