@@ -54,7 +54,9 @@ def register():
                             email=info['email'],
                             password='5*Hotel',
                             active=True,
-                            credentials=credential_storage)
+                            credentials=credential_storage,
+                            monitored_reddits={},
+                            current_theme="zen")
             login_user(new_user)
             flash(info['name'] + " thank you for registering.", 'success')
         else:
