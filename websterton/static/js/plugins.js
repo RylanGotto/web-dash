@@ -71,6 +71,7 @@ function set_save_settings_action(){
 
 		user_location = $('#location').val();
 		list['location'] = user_location;
+		loadWeather(user_location,'')
 
 		$.get("http://localhost:5000/user_manager/save_user_settings", list).done(function(data){});
 	
@@ -93,6 +94,21 @@ function limit_checkbox_to_one_checked(){
 
 }
 
+function set_refresh_background_action(){
+	$('.fa-refresh').on('click', function(){
+		set_change_background_behaviour();
+	});
+}
+$.get("http://localhost:5000/user_manager/get_quote").done(function(data){
+			data = jQuery.parseJSON(data)
+			$('#quote').html(data['quote']);
+			$('#quote_author').html(" - " + data['author']);
+
+	
+	    }).fail(function(){
+	    	
+	    });
+
 $(document).ready(function (){
     	$('#num_reddits').html($('.info').size());
     	$(document).on({
@@ -100,11 +116,14 @@ $(document).ready(function (){
      		ajaxStop: function() { $('.fa-spinner').fadeOut('slow'); }    
 		});
 
+    	
+
 		limit_checkbox_to_one_checked();
 		set_add_monitored_reddit_action();
 		set_save_settings_action();
 		set_change_background_behaviour();
 		set_delete_monitored_reddit_action();
+		set_refresh_background_action();
 
 
 });

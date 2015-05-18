@@ -4,6 +4,7 @@ from flask import (Blueprint, request, render_template, flash, url_for,
 from flask.ext.login import login_required
 from websterton.user.models import User
 from random import randint
+from forismatic import Forismatic
 import os
 import praw
 import json
@@ -85,6 +86,16 @@ def remove_reddit():
 @login_required
 def get_user_location():
 	return load_user(session['user_id']).location
+	
+@blueprint.route("/get_quote", methods=["GET", "POST"])
+@login_required
+def get_quote():
+	# Initializing manager
+	f = Forismatic()
+	q = f.get_quote()
+	quote = {'quote':q.quote, 'author': q.author}
+	print quote
+	return json.dumps(quote)
 	
 
 def load_user(id):

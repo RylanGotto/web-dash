@@ -204,7 +204,7 @@ footer .footer-nav {
 .navbar-inverse .navbar-link {
   color: white;
 }
-.fa-sign-out, .fa-home{
+.fa-sign-out, .fa-home, .fa-refresh{
   font-size: 2rem;
   color: white;
 }
