@@ -21,7 +21,12 @@
           
             <div id="focuses" style="opacity: 1;">
               <div class="prompt" style="opacity: 1; display: block;">
-               <input id="location" type="text" value=""/>
+              {% if current_user.location %}
+                <input id="location" type="text" value="{{current_user.location}}"/>
+              {% else %}
+                <input id="location" type="text" value=""/>
+              {% endif %}
+
               </div>
             </div>
       

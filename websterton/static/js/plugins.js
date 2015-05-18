@@ -50,7 +50,8 @@ function set_add_monitored_reddit_action(){
 }
 
 function set_save_settings_action(){
-	$('#save-settings').on('click', function(){
+	$('#save-settings').on('click', function(e){
+		e.preventDefault();
 		var data = {};
 		list = {};
 		var ar = $("#news-feed-form").serializeArray();
@@ -68,10 +69,11 @@ function set_save_settings_action(){
 
 		console.log(list);
 
-		
-		$.get("http://localhost:5000/user_manager/save_user_settings", list).done(function(data){
+		user_location = $('#location').val();
+		list['location'] = user_location;
 
-    	});
+		$.get("http://localhost:5000/user_manager/save_user_settings", list).done(function(data){});
+	
 
 		});
 	    
@@ -127,7 +129,14 @@ $('.js-geolocation').on('click', function() {
 * Austin WOEID: 2357536
 */
 $(document).ready(function() {
-  loadWeather('Phoenix',''); //@params location, woeid
+	$.get("http://localhost:5000/user_manager/get_user_location").done(function(data){
+			
+			loadWeather(data,'');
+	
+	    }).fail(function(){
+	    	loadWeather('Seattle','');
+	    });
+   //@params location, woeid
 });
 
 function loadWeather(location, woeid) {
@@ -136,7 +145,7 @@ function loadWeather(location, woeid) {
     woeid: woeid,
     unit: 'c',
     success: function(weather) {
-      html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
+      html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2><p style="  position: relative; top: -3rem;" >in ' + weather.city;
       
       $("#weather").html(html);
     },

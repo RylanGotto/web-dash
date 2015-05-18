@@ -21,6 +21,7 @@
     <ul class="nav navbar-nav navbar-right">
     {% if request.path|string() == '/users/settings/'|string() %}
        <li><a class="navbar-link" id="save-settings" href="#">Save</a></li>
+       
       {% endif %}
         <li><a class="navbar-link" href="{{ url_for('user.members') }}"><i class="fa fa-home"></i></a></li>
 

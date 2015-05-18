@@ -32,14 +32,12 @@ def save_user_settings():
 	
 	user_info = request.args.to_dict()
 	user = load_user(session['user_id'])
-	print user.news_feed
 	news_feed = {}
+	user.current_theme = user_info.pop('theme')
+	user.location = user_info.pop('location')
+	print user_info
 	for i, k in user_info.iteritems():
-		if i == 'theme':
-			user.current_theme = k
-		elif i != 'theme' and i != 'user_id':
 			news_feed.update({i:k})
-	
 	user.news_feed = news_feed
 	user.save()
 	return "theme changed"
@@ -82,6 +80,11 @@ def remove_reddit():
 	user.monitored_reddits = json.dumps(monitored_reddits)
 	user.save()
 	return "deleted"
+
+@blueprint.route("/get_user_location", methods=["GET", "POST"])
+@login_required
+def get_user_location():
+	return load_user(session['user_id']).location
 	
 
 def load_user(id):
