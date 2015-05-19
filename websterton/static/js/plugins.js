@@ -148,6 +148,7 @@ $(document).ready(function (){
 		set_save_settings_action();
 		set_change_background_behaviour();
 		set_delete_monitored_reddit_action();
+		set_refresh_background_action();
 		set_get_new_quote_action();
 		$('#num_reddits').html($('.info').size());
 
