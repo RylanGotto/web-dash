@@ -85,6 +85,7 @@ function set_change_background_behaviour(){
 			$('body').css({'background-image': 'url('+data+')'});
 	
 	    });
+	    set_get_new_quote_action();
 }
 
 function limit_checkbox_to_one_checked(){
@@ -99,7 +100,25 @@ function set_refresh_background_action(){
 		set_change_background_behaviour();
 	});
 }
-$.get("http://localhost:5000/user_manager/get_quote").done(function(data){
+
+function loadWeather(location, woeid) {
+  $.simpleWeather({
+    location: location,
+    woeid: woeid,
+    unit: 'c',
+    success: function(weather) {
+      html = '<h2 style="display:inline-block;"><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2><p style=" margin-left:.5rem; display: inline-block;" >' + weather.city;
+      
+      $("#weather").html(html);
+    },
+    error: function(error) {
+      $("#weather").html('<p>'+error+'</p>');
+    }
+  });
+}
+
+function set_get_new_quote_action(){
+	$.get("http://localhost:5000/user_manager/get_quote").done(function(data){
 			data = jQuery.parseJSON(data)
 			$('#quote').html(data['quote']);
 			$('#quote_author').html(" - " + data['author']);
@@ -108,9 +127,15 @@ $.get("http://localhost:5000/user_manager/get_quote").done(function(data){
 	    }).fail(function(){
 	    	
 	    });
+}
+
+
+
 
 $(document).ready(function (){
-    	$('#num_reddits').html($('.info').size());
+	 
+
+    	
     	$(document).on({
      		ajaxStart: function() { $('.fa-spinner').fadeIn('slow');  },
      		ajaxStop: function() { $('.fa-spinner').fadeOut('slow'); }    
@@ -123,56 +148,56 @@ $(document).ready(function (){
 		set_save_settings_action();
 		set_change_background_behaviour();
 		set_delete_monitored_reddit_action();
-		set_refresh_background_action();
+		set_get_new_quote_action();
+		$('#num_reddits').html($('.info').size());
 
-
-});
-
-/* Does your browser support geolocation? */
-if ("geolocation" in navigator) {
-  $('.js-geolocation').show(); 
-} else {
-  $('.js-geolocation').hide();
-}
-
-/* Where in the world are you? */
-$('.js-geolocation').on('click', function() {
-  navigator.geolocation.getCurrentPosition(function(position) {
-    loadWeather(position.coords.latitude+','+position.coords.longitude); //load weather using your lat/lng coordinates
-  });
-});
-
-/* 
-* Test Locations
-* Austin lat/long: 30.2676,-97.74298
-* Austin WOEID: 2357536
-*/
-$(document).ready(function() {
-	$.get("http://localhost:5000/user_manager/get_user_location").done(function(data){
+		$.get("http://localhost:5000/user_manager/get_user_location").done(function(data){
 			
 			loadWeather(data,'');
 	
 	    }).fail(function(){
 	    	loadWeather('Seattle','');
 	    });
-   //@params location, woeid
+
+	    setInterval('updateClock()', 1000);
+
 });
 
-function loadWeather(location, woeid) {
-  $.simpleWeather({
-    location: location,
-    woeid: woeid,
-    unit: 'c',
-    success: function(weather) {
-      html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2><p style="  position: relative; top: -3rem;" >in ' + weather.city;
-      
-      $("#weather").html(html);
-    },
-    error: function(error) {
-      $("#weather").html('<p>'+error+'</p>');
-    }
-  });
-}
+
+
+function updateClock ( )
+    {
+	    var currentTime = new Date ( );
+	    var currentHours = currentTime.getHours ( );
+	    var currentMinutes = currentTime.getMinutes ( );
+	    var currentSeconds = currentTime.getSeconds ( );
+	 
+	    // Pad the minutes and seconds with leading zeros, if required
+	    currentMinutes = ( currentMinutes < 10 ? "0" : "" ) + currentMinutes;
+	    currentSeconds = ( currentSeconds < 10 ? "0" : "" ) + currentSeconds;
+	 
+	    // Choose either "AM" or "PM" as appropriate
+	    var timeOfDay = ( currentHours < 12 ) ? "AM" : "PM";
+	 
+	    // Convert the hours component to 12-hour format if needed
+	    currentHours = ( currentHours > 12 ) ? currentHours - 12 : currentHours;
+	 
+	    // Convert an hours component of "0" to "12"
+	    currentHours = ( currentHours == 0 ) ? 12 : currentHours;
+	 
+	    // Compose the string for display
+	    var currentTimeString = currentHours + ":" + currentMinutes + " " + timeOfDay;
+	     
+	     
+	    $("#clock").html(currentTimeString);
+	         
+ }
+ 
+
+
+
+
+
 
 
 

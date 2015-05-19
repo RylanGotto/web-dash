@@ -37,20 +37,27 @@
 {% with form=form  %}
 {% include "nav.html" %}
 {% endwith %}
-        <input id="user_id" type="hidden" value="{{ current_user.id }}" />
-        <input id="current_theme" type="hidden" value="{{ current_user.current_theme }}" />
 
 <header>{% block header %}{% endblock %}</header>
 <div class="{% block content_class %}container{% endblock content_class %}">
 
   <div role="main">
+  
+
   <div class="loading-spinner">
    <!-- I used these center tags because I dont believe in anything. <3 -->
     <center style="height:50px;"><i style="font-size:3rem; display: none; "class="fa fa-spinner fa-pulse"></i></center>
   </div>
+  <div class="row">
+   <div class="col-md-12">
+        <center><div  id="clock"></div></center>
+       
+    </div>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     <div class="row">
+     
+      </div>
       <div class="col-md-12">
         {% for category, message in messages %}
         <div class="alert alert-{{ category }}">
@@ -91,4 +98,5 @@
   </script>
 </body>
 </html>
+
 
